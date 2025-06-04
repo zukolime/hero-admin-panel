@@ -1,15 +1,5 @@
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
-
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 
 import { useHttp } from "../../hooks/http.hook";
@@ -21,6 +11,7 @@ const HeroesAddForm = () => {
   const [heroElement, setHeroElement] = useState("");
 
   const { request } = useHttp();
+  const { filters, filtersLoadingStatus } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const onCreateHero = (e) => {
@@ -39,6 +30,26 @@ const HeroesAddForm = () => {
     setHeroName("");
     setHeroDescription("");
     setHeroElement("");
+  };
+
+  const renderElems = (elems, status) => {
+    if (status === "loading") {
+      return <option>Загрузка элементов</option>;
+    } else if (status === "error") {
+      return <option>Ошибка загрузки</option>;
+    }
+
+    if (elems && elems.length > 0) {
+      return elems.map(({ name, text }) => {
+        if (name === "all") return;
+
+        return (
+          <option key={name} value={name}>
+            {text}
+          </option>
+        );
+      });
+    }
   };
 
   return (
@@ -87,11 +98,8 @@ const HeroesAddForm = () => {
           value={heroElement}
           onChange={(e) => setHeroElement(e.target.value)}
         >
-          <option>Я владею элементом...</option>
-          <option value="fire">Огонь</option>
-          <option value="water">Вода</option>
-          <option value="wind">Ветер</option>
-          <option value="earth">Земля</option>
+          <option value="">Я владею элементом...</option>
+          {renderElems(filters, filtersLoadingStatus)}
         </select>
       </div>
 

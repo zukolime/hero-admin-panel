@@ -17,13 +17,45 @@
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
       "element": "water"
+    },
+    {
+      "id": "3c315c6a-d3a8-41cc-b20b-9f224e96612b",
+      "name": "Огонь",
+      "description": "Вообще огонь",
+      "element": "fire"
+    },
+    {
+      "id": "9a779da1-ae6e-47f0-aa45-548dc17705c5",
+      "name": "Последний герой",
+      "description": "Ни свой, ни чужой",
+      "element": "earth"
     }
   ],
   "filters": [
-    "all",
-    "fire",
-    "water",
-    "wind",
-    "earth"
+    {
+      "name": "all",
+      "text": "Все",
+      "className": "btn-outline-dark"
+    },
+    {
+      "name": "fire",
+      "text": "Огонь",
+      "className": "btn-danger"
+    },
+    {
+      "name": "water",
+      "text": "Вода",
+      "className": "btn-primary"
+    },
+    {
+      "name": "wind",
+      "text": "Ветер",
+      "className": "btn-success"
+    },
+    {
+      "name": "earth",
+      "text": "Земля",
+      "className": "btn-secondary"
+    }
   ]
 }
