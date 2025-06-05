@@ -1,19 +1,14 @@
-import { useHttp } from "../../hooks/http.hook";
 import { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { createSelector } from "reselect";
 
-import "./heroesList.scss";
-
-import {
-  heroesFetching,
-  heroesFetched,
-  heroesFetchingError,
-  heroDeleted,
-} from "../../actions";
+import { useHttp } from "../../hooks/http.hook";
+import { fetchHeroes, heroDeleted } from "../../actions";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from "../spinner/Spinner";
+
+import "./heroesList.scss";
 
 const HeroesList = () => {
   const filteredHeroesSelector = createSelector(
@@ -36,10 +31,7 @@ const HeroesList = () => {
   const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(heroesFetching());
-    request("http://localhost:3001/heroes")
-      .then((data) => dispatch(heroesFetched(data)))
-      .catch(() => dispatch(heroesFetchingError()));
+    dispatch(fetchHeroes(request));
   }, []);
 
   const onDeleteHero = useCallback(
