@@ -1,1 +1,9 @@
-This is test project with hero admin panel!
+## Project setup
+
+```
+npm install
+```
+
+```
+npm start
+```
