@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 
 import { useHttp } from "../../hooks/http.hook";
-import { fetchFiltres, activeFilterChanged } from "../../actions/index";
+import { fetchFiltres, filtersChanged } from "./filtersSlice";
 
 import Spinner from "../spinner/Spinner";
 
@@ -12,10 +12,9 @@ const HeroesFilters = () => {
     (state) => state.filters
   );
   const dispatch = useDispatch();
-  const { request } = useHttp();
 
   useEffect(() => {
-    dispatch(fetchFiltres(request));
+    dispatch(fetchFiltres());
   }, []);
 
   if (filtersLoadingStatus === "loading") {
@@ -37,7 +36,7 @@ const HeroesFilters = () => {
         <button
           key={name}
           className={btnClass}
-          onClick={() => dispatch(activeFilterChanged(name))}
+          onClick={() => dispatch(filtersChanged(name))}
         >
           {text}
         </button>
