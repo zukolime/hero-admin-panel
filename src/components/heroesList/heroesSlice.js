@@ -8,11 +8,6 @@ import { useHttp } from "../../hooks/http.hook";
 
 const heroesAdapter = createEntityAdapter();
 
-// const initialState = {
-//   heroes: [],
-//   heroesLoadingStatus: "idle",
-// };
-
 const initialState = heroesAdapter.getInitialState({
   heroesLoadingStatus: "idle",
 });
@@ -27,11 +22,9 @@ const heroesSlice = createSlice({
   initialState,
   reducers: {
     heroCreated: (state, action) => {
-      // state.heroes.push(action.payload);
       heroesAdapter.addOne(state, action.payload);
     },
     heroDeleted: (state, action) => {
-      // state.heroes = state.heroes.filter((item) => item.id !== action.payload);
       heroesAdapter.removeOne(state, action.payload);
     },
   },
@@ -42,7 +35,6 @@ const heroesSlice = createSlice({
       })
       .addCase(fetchHeroes.fulfilled, (state, action) => {
         state.heroesLoadingStatus = "idle";
-        // state.heroes = action.payload;
         heroesAdapter.setAll(state, action.payload);
       })
       .addCase(fetchHeroes.rejected, (state) => {

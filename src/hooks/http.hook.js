@@ -16,7 +16,6 @@ export const useHttp = () => {
 
       return data;
     } catch (e) {
-      // setProcess('error');
       throw e;
     }
   };

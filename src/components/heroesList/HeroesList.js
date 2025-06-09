@@ -13,7 +13,6 @@ import "./heroesList.scss";
 const HeroesList = () => {
   const filteredHeroesSelector = createSelector(
     (state) => state.filters.activeFilter,
-    // (state) => state.heroes.heroes,
     selectAll,
     (filter, heroes) => {
       if (filter === "all") {
@@ -39,7 +38,7 @@ const HeroesList = () => {
     (id) => {
       request(`http://localhost:3001/heroes/${id}`, "DELETE")
         .then(dispatch(heroDeleted(id)))
-        .catch((res) => console.log(res.error));
+        .catch((error) => console.log(error));
     },
     [request]
   );
